@@ -80,7 +80,7 @@ const cardTypes = [
     title: '喜相逢', 
     price: 10, 
     maxPrize: '30万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/xi_xiang_feng.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/xi_xiang_feng.png`,
     config: { winningCount: 2, playCount: 6, price: 10, maxPrize: '30万', gameType: 'standard' },
     theme: {
       primary: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)',
@@ -93,7 +93,7 @@ const cardTypes = [
     title: '超级777', 
     price: 20, 
     maxPrize: '100万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/super_777.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/super_777.png`,
     config: { winningCount: 0, playCount: 9, price: 20, maxPrize: '100万', gameType: 'find_symbol', targetSymbol: '7' },
     theme: {
       primary: 'linear-gradient(135deg, #1a1a1a 0%, #434343 100%)',
@@ -106,7 +106,7 @@ const cardTypes = [
     title: '好运十倍', 
     price: 10, 
     maxPrize: '40万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/lucky_10x.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/lucky_10x.png`,
     config: { winningCount: 0, playCount: 12, price: 10, maxPrize: '40万', gameType: 'find_symbol', targetSymbol: '10X' },
     theme: {
       primary: 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
@@ -119,7 +119,7 @@ const cardTypes = [
     title: '点石成金', 
     price: 20, 
     maxPrize: '100万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/gold_touch.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/gold_touch.png`,
     config: { winningCount: 0, playCount: 12, price: 20, maxPrize: '100万', gameType: 'match_three' },
     theme: {
       primary: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
@@ -132,7 +132,7 @@ const cardTypes = [
     title: '大吉大利', 
     price: 5, 
     maxPrize: '10万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/great_luck.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/great_luck.png`,
     config: { winningCount: 0, playCount: 6, price: 5, maxPrize: '10万', gameType: 'match_three' },
     theme: {
       primary: 'linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)',
@@ -145,7 +145,7 @@ const cardTypes = [
     title: '财运亨通', 
     price: 10, 
     maxPrize: '25万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/wealth_flow.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/wealth_flow.png`,
     config: { winningCount: 0, playCount: 9, price: 10, maxPrize: '25万', gameType: 'match_three' },
     theme: {
       primary: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
@@ -171,7 +171,7 @@ const cardTypes = [
     title: '龙年大悦', 
     price: 30, 
     maxPrize: '150万', 
-    image: '${import.meta.env.BASE_URL}images/scratch_cards/dragon_joy.png',
+    image: `${import.meta.env.BASE_URL}images/scratch_cards/dragon_joy.png`,
     config: { winningCount: 0, playCount: 15, price: 30, maxPrize: '150万', gameType: 'find_symbol', targetSymbol: '🐲' },
     theme: {
       primary: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
