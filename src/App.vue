@@ -153,7 +153,7 @@
       <!-- 页脚 -->
       <footer class="footer">
         <div class="container">
-          <p>&copy; 2024 IO724.com | 程序员 · 狮子座 · .NET开发者</p>
+          <p>&copy; 2025 IO724.com | 程序员 · 狮子座 · .NET开发者</p>
           <p class="footer-tech">Built with Vue 3</p>
           <p class="footer-tech">Power By Gemini 3 Pro</p>
         </div>
