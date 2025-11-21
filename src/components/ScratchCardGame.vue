@@ -171,7 +171,7 @@ const cardTypes = [
     title: '龙年大悦', 
     price: 30, 
     maxPrize: '150万', 
-    image: '/images/scratch_cards/wealth_flow.png', // Placeholder
+    image: '/images/scratch_cards/dragon_joy.png',
     config: { winningCount: 0, playCount: 15, price: 30, maxPrize: '150万', gameType: 'find_symbol', targetSymbol: '🐲' },
     theme: {
       primary: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
