@@ -593,12 +593,6 @@ const animate = () => {
   // Actually, easiest is to translate context to top-left (-w/2, -h/2) inside the rotated frame.
   ctx.translate(-canvas.value.width / 2, -canvas.value.height / 2)
   
-  drawMilkyWay() // Milky Way is drawn at (0,0) internally? No, we removed its translation. 
-                 // Wait, Milky Way generation (createMilkyWayStars) produces coordinates centered at (0,0)?
-                 // Let's check createMilkyWayStars.
-                 // Yes: x = Math.cos(angle) * radius. It produces centered coordinates.
-                 // So for Milky Way, we need to be at (0,0) inside the rotated frame.
-                 
   // Let's split the rotation groups.
   
   ctx.restore() // Reset for safety
