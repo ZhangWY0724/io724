@@ -13,7 +13,7 @@ let backgroundStars = []
 let accentStars = []
 let nebulaClouds = []
 let shootingStars = []
-let mouseTrails = []
+let trailParticles = []
 let milkyWayStars = []
 let milkyWayDust = [] // New: Dust particles
 let constellationStars = []
@@ -722,9 +722,33 @@ let trailHistory = []
 const trailLength = 15
 
 const drawMouseTrails = () => {
-  // 1. Update Trail History
-  if (mouse.active) {
+  // 1. Update Trail History & Spawn Particles ONLY on movement
+  const dx = mouse.x - mouse.lastX
+  const dy = mouse.y - mouse.lastY
+  const dist = Math.sqrt(dx * dx + dy * dy)
+  
+  // Only add points if mouse moved significantly
+  if (mouse.active && dist > 2) {
     trailHistory.push({ x: mouse.x, y: mouse.y, age: 0 })
+    mouse.lastX = mouse.x
+    mouse.lastY = mouse.y
+    
+    // Spawn Galaxy Particles (Subtler)
+    // Reduce count to 2 per frame for less density
+    for (let i = 0; i < 2; i++) {
+      const angle = Math.random() * Math.PI * 2
+      const speed = Math.random() * 1.0 // Slower
+      trailParticles.push({
+        x: mouse.x + (Math.random() - 0.5) * 5, // Slight spread
+        y: mouse.y + (Math.random() - 0.5) * 5,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * 1.5 + 0.2, // Smaller (was 2.5 + 0.5)
+        life: 1,
+        decay: 0.02 + Math.random() * 0.03, // Faster fade
+        hue: currentTheme.hue + (Math.random() - 0.5) * 30
+      })
+    }
   }
   
   // Maintain trail length
@@ -732,53 +756,75 @@ const drawMouseTrails = () => {
     trailHistory.shift()
   }
   
-  // Age points and remove old ones (if mouse inactive)
-  if (!mouse.active && trailHistory.length > 0) {
-    trailHistory.shift()
+  // Age points and remove old ones
+  // If not moving, trail should decay
+  if (trailHistory.length > 0) {
+     // If we haven't added a point recently (not moving), remove old ones faster
+     if (!mouse.active || dist <= 2) {
+        trailHistory.shift()
+     }
+  }
+
+  // 2. Update & Draw Particles
+  for (let i = trailParticles.length - 1; i >= 0; i--) {
+    const p = trailParticles[i]
+    p.x += p.vx
+    p.y += p.vy
+    p.life -= p.decay
+    
+    if (p.life <= 0) {
+      trailParticles.splice(i, 1)
+      continue
+    }
+    
+    ctx.beginPath()
+    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3)
+    gradient.addColorStop(0, `hsla(${p.hue}, 90%, 80%, ${p.life * 0.8})`) // Slightly more transparent
+    gradient.addColorStop(1, `hsla(${p.hue}, 90%, 80%, 0)`)
+    
+    ctx.fillStyle = gradient
+    ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2)
+    ctx.fill()
   }
   
   if (trailHistory.length < 3) return
 
-  // 2. Draw Main Meteor Stream
+  // 3. Draw Main Meteor Stream
   ctx.save()
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   
-  // Create gradient for the main trail
   const head = trailHistory[trailHistory.length - 1]
   const tail = trailHistory[0]
   const gradient = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y)
   gradient.addColorStop(0, `hsla(${currentTheme.hue}, 80%, 50%, 0)`)
-  gradient.addColorStop(1, `hsla(${currentTheme.hue}, 90%, 80%, 0.8)`)
+  gradient.addColorStop(1, `hsla(${currentTheme.hue}, 90%, 80%, 0.4)`) // Even more transparent
   
   ctx.strokeStyle = gradient
-  ctx.lineWidth = 3
+  ctx.lineWidth = 1.5 // Thinner
   ctx.shadowBlur = 10
-  ctx.shadowColor = `hsla(${currentTheme.hue}, 80%, 60%, 0.5)`
+  ctx.shadowColor = `hsla(${currentTheme.hue}, 80%, 60%, 0.3)`
   
   ctx.beginPath()
   ctx.moveTo(trailHistory[0].x, trailHistory[0].y)
   
-  // Correct Bezier Curve for smooth path
   for (let i = 1; i < trailHistory.length - 1; i++) {
     const xc = (trailHistory[i].x + trailHistory[i + 1].x) / 2
     const yc = (trailHistory[i].y + trailHistory[i + 1].y) / 2
     ctx.quadraticCurveTo(trailHistory[i].x, trailHistory[i].y, xc, yc)
   }
-  // Connect to the very last point
   ctx.lineTo(trailHistory[trailHistory.length - 1].x, trailHistory[trailHistory.length - 1].y)
   
   ctx.stroke()
   
-  // 3. Draw "Silk" Threads (Sine wave offsets)
-  drawSilkThread(trailHistory, 1, 5, 0.1)
-  drawSilkThread(trailHistory, -1, 4, 0.15)
+  // Draw "Silk" Threads (Very Subtle)
+  drawSilkThread(trailHistory, 1, 2, 0.1)
   
-  // 4. Draw Head Glow
-  ctx.shadowBlur = 15
-  ctx.fillStyle = '#fff'
+  // Head Glow
+  ctx.shadowBlur = 10
+  ctx.fillStyle = `rgba(255, 255, 255, 0.8)`
   ctx.beginPath()
-  ctx.arc(head.x, head.y, 2, 0, Math.PI * 2)
+  ctx.arc(head.x, head.y, 1, 0, Math.PI * 2)
   ctx.fill()
   
   ctx.restore()
