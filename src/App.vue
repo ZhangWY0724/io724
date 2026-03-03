@@ -13,7 +13,6 @@
             <li><a href="#about" @click="handleNavClick">关于</a></li>
             <li><a href="#skills" @click="handleNavClick">技能</a></li>
             <li><a href="#contact" @click="handleNavClick">联系</a></li>
-            <li><a href="#" @click.prevent="switchToScratch">刮刮乐</a></li>
           </ul>
           <button class="mobile-menu-btn" @click="toggleMobileMenu">
             <span></span>
@@ -26,7 +25,6 @@
           <a href="#about" @click="handleNavClick">关于</a>
           <a href="#skills" @click="handleNavClick">技能</a>
           <a href="#contact" @click="handleNavClick">联系</a>
-          <a href="#" @click.prevent="switchToScratch">刮刮乐</a>
         </div>
       </nav>
 
@@ -147,9 +145,6 @@
         </section>
       </div>
 
-      <!-- 刮刮乐页面 -->
-      <ScratchCardGame v-if="currentView === 'scratch'" @back="currentView = 'home'" />
-
       <!-- 页脚 -->
       <footer class="footer">
         <div class="container">
@@ -165,7 +160,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import GravityBackground from './components/GravityBackground.vue'
-import ScratchCardGame from './components/ScratchCardGame.vue'
 
 // 状态管理
 const currentView = ref('home')
@@ -233,12 +227,6 @@ const handleNavClick = async (e) => {
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' })
   }
-  closeMobileMenu()
-}
-
-// 切换到刮刮乐
-const switchToScratch = () => {
-  currentView.value = 'scratch'
   closeMobileMenu()
 }
 
